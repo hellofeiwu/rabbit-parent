@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class MessageBuilder {
     private String messageId;
-    private String topic;
+    private String exchange;
     private String routingKey = "";
     private Map<String, Object> attributes = new HashMap<String, Object>();
     private int delayMillis;
@@ -26,8 +26,8 @@ public class MessageBuilder {
         return this;
     }
 
-    public MessageBuilder withTopic(String topic) {
-        this.topic = topic;
+    public MessageBuilder withExchange(String exchange) {
+        this.exchange = exchange;
         return this;
     }
 
@@ -61,10 +61,10 @@ public class MessageBuilder {
             messageId = UUID.randomUUID().toString();
         }
 
-        if (topic == null) {
-            throw new MessageRunTimeException("topic is null");
+        if (exchange == null) {
+            throw new MessageRunTimeException("exchange is null");
         }
 
-        return new Message(messageId, topic, routingKey, attributes, delayMillis, messageType);
+        return new Message(messageId, exchange, routingKey, attributes, delayMillis, messageType);
     }
 }

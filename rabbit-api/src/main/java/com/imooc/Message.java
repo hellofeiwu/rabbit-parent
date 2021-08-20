@@ -11,8 +11,8 @@ public class Message {
     // 消息的唯一ID
     private String messageId;
 
-    // 这里是指exchange, 因为这里用的exchange都是topic类型的，所以就直接写成topic了
-    private String topic;
+    // 这里的exchange都是topic类型的
+    private String exchange;
 
     // 路由规则
     private String routingKey = "";
@@ -26,9 +26,9 @@ public class Message {
     // 消息类型：默认为 confirm 类型
     private String messageType = MessageType.CONFIRM;
 
-    public Message(String messageId, String topic, String routingKey, Map<String, Object> attributes, int delayMillis, String messageType) {
+    public Message(String messageId, String exchange, String routingKey, Map<String, Object> attributes, int delayMillis, String messageType) {
         this.messageId = messageId;
-        this.topic = topic;
+        this.exchange = exchange;
         this.routingKey = routingKey;
         this.attributes = attributes;
         this.delayMillis = delayMillis;
