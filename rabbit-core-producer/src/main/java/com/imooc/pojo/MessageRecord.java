@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class MessageRecord {
     private String messageId;
-    private Message message;
+    private String message;
     private Integer tryCount;
     private Integer status;
     private Date nextRetry;
@@ -21,11 +21,11 @@ public class MessageRecord {
         this.messageId = messageId;
     }
 
-    public Message getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Message message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

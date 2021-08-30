@@ -6,7 +6,7 @@
         <!--
         TODO: 需要加上 message typeHandler
         -->
-        <result column="message" property="message" jdbcType="VARCHAR" typeHandler="" />
+        <result column="message" property="message" jdbcType="VARCHAR" />
         <result column="try_count" property="tryCount" jdbcType="INTEGER" />
         <result column="status" property="status" jdbcType="VARCHAR" />
         <result column="next_retry" property="nextRetry" jdbcType="TIMESTAMP" />
@@ -30,7 +30,7 @@
         insert into message_record (message_id, message, try_count,
         status, next_retry, create_time,
         update_time)
-        values (#{messageId,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR, typeHandler=}, #{tryCount,jdbcType=INTEGER},
+        values (#{messageId,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{tryCount,jdbcType=INTEGER},
         #{status,jdbcType=VARCHAR}, #{nextRetry,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
         #{updateTime,jdbcType=TIMESTAMP})
     </insert>
@@ -64,7 +64,7 @@
                 #{messageId,jdbcType=VARCHAR},
             </if>
             <if test="message != null" >
-                #{message,jdbcType=VARCHAR, typeHandler=},
+                #{message,jdbcType=VARCHAR},
             </if>
             <if test="tryCount != null" >
                 #{tryCount,jdbcType=INTEGER},
@@ -87,7 +87,7 @@
         update message_record
         <set >
             <if test="message != null" >
-                message = #{message,jdbcType=VARCHAR, typeHandler=},
+                message = #{message,jdbcType=VARCHAR},
             </if>
             <if test="tryCount != null" >
                 try_count = #{tryCount,jdbcType=INTEGER},
@@ -109,7 +109,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.imooc.pojo.MessageRecord" >
         update message_record
-        set message = #{message,jdbcType=VARCHAR, typeHandler=},
+        set message = #{message,jdbcType=VARCHAR},
         try_count = #{tryCount,jdbcType=INTEGER},
         status = #{status,jdbcType=VARCHAR},
         next_retry = #{nextRetry,jdbcType=TIMESTAMP},

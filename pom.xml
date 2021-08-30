@@ -25,7 +25,6 @@
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
-        <fastjson.version>1.1.26</fastjson.version>
         <org.codehaus.jackson.version>1.9.13</org.codehaus.jackson.version>
         <fasterxml.uuid.version>3.1.4</fasterxml.uuid.version>
         <guava.version>20.0</guava.version>
@@ -74,26 +73,6 @@
         </dependency>
         <!-- apache 工具类 end -->
 
-        <!--对json格式的支持 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${org.codehaus.jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.uuid</groupId>
-            <artifactId>java-uuid-generator</artifactId>
-            <version>${fasterxml.uuid.version}</version>
-        </dependency>
     </dependencies>
 
 </project>

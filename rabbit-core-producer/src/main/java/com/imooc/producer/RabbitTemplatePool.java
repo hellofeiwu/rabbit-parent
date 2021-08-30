@@ -54,9 +54,13 @@ public class RabbitTemplatePool implements RabbitTemplate.ConfirmCallback {
         String[] stringArr = correlationData.getId().split("#");
         String messageId = stringArr[0];
         Long sendTime = Long.valueOf(stringArr[1]);
+        String messageType = stringArr[2];
 
         if (ack) {
-            messageRecordService.success(messageId);
+            if (messageType.equals(MessageType.RELIANT)) {
+                messageRecordService.success(messageId);
+            }
+
             System.out.println("message sent OK, messageId: "
                                 + messageId
                                 + ", sendTime: "

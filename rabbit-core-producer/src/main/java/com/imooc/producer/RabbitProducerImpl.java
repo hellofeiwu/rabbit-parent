@@ -4,6 +4,7 @@ import com.imooc.Message;
 import com.imooc.constant.MessageRecordStatus;
 import com.imooc.pojo.MessageRecord;
 import com.imooc.service.MessageRecordService;
+import com.imooc.utils.JsonUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -35,6 +36,8 @@ public class RabbitProducerImpl implements RabbitProducer {
                         message.getMessageId()
                                 + "#"
                                 + System.currentTimeMillis()
+                                + "#"
+                                + message.getMessageType()
                 );
                 String exchange = message.getExchange();
                 String routingKey = message.getRoutingKey();
@@ -59,17 +62,21 @@ public class RabbitProducerImpl implements RabbitProducer {
 
     @Override
     public void reliantSend(Message message) {
-        // 1. 在DB中创建一条消息记录
-        MessageRecord messageRecord = new MessageRecord();
-        messageRecord.setMessageId(message.getMessageId());
-        messageRecord.setMessage(message);
-        messageRecord.setStatus(MessageRecordStatus.SENDING.code);
-        // tryCount在最开始不用设置
-        Date now = new Date();
-        messageRecord.setNextRetry(DateUtils.addMinutes(now, 1)); // 设置为添加1分钟
-        messageRecord.setCreateTime(now);
-        messageRecord.setUpdateTime(now);
-        messageRecordService.insert(messageRecord);
+        MessageRecord messageRecord = messageRecordService.queryById(message.getMessageId());
+        if (messageRecord == null) {
+            // 1. 在DB中创建一条消息记录
+            messageRecord = new MessageRecord();
+            messageRecord.setMessageId(message.getMessageId());
+            String messageString = JsonUtils.objectToJson(message);
+            messageRecord.setMessage(messageString);
+            messageRecord.setStatus(MessageRecordStatus.SENDING.code);
+            // tryCount在最开始不用设置
+            Date now = new Date();
+            messageRecord.setNextRetry(DateUtils.addMinutes(now, 1)); // 设置为添加1分钟
+            messageRecord.setCreateTime(now);
+            messageRecord.setUpdateTime(now);
+            messageRecordService.insert(messageRecord);
+        }
 
         // 2. 发送消息
         send(message);
