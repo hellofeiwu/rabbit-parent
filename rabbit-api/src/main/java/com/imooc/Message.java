@@ -1,11 +1,8 @@
 package com.imooc;
 
-import lombok.Data;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
 public class Message {
 
     // 消息的唯一ID
@@ -32,6 +29,54 @@ public class Message {
         this.routingKey = routingKey;
         this.attributes = attributes;
         this.delayMillis = delayMillis;
+        this.messageType = messageType;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
+    }
+
+    public String getRoutingKey() {
+        return routingKey;
+    }
+
+    public void setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
+    }
+
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+    public int getDelayMillis() {
+        return delayMillis;
+    }
+
+    public void setDelayMillis(int delayMillis) {
+        this.delayMillis = delayMillis;
+    }
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
         this.messageType = messageType;
     }
 }
